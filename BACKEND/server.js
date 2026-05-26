@@ -1,0 +1,57 @@
+
+const express = require("express");
+const db = require('./Config/db');
+const authRoutes = require('./Routes/auth');
+const productsRoute = require('./Routes/product')
+const cookieParser = require('cookie-parser');
+const userRoute = require('./Routes/user');
+const cartRoute = require('./Routes/cart');
+const checkoutRoute = require('./Routes/orders');
+const cors = require('cors')
+require('dotenv').config();
+
+
+const app = express();
+
+//allow request from frontend
+app.use(cors());
+
+// parse json body
+app.use(express.json());
+
+app.use(cookieParser());
+// Routes
+app.get('/test',(req, res) => {
+    res.status(200).json({
+        msg: "You are on test route"
+    });
+})
+
+//auth route
+app.use('/api/auth', authRoutes);
+
+//Product route
+app.use('/api/products', productsRoute);
+//user route
+app.use('/api/user', userRoute);
+//cart route
+app.use('/api/cart', cartRoute);
+//checkout route
+app.use('/api/orders', checkoutRoute);
+
+
+// Test Route
+app.get("/", (req, res) => {
+  res.send("FridgeMart Backend Running ");
+});
+
+
+const PORT = process.env.PORT || 4000; // matches .env PORT=4000
+
+module.exports = app;
+
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
