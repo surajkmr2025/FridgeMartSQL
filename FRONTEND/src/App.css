@@ -1,0 +1,411 @@
+/* ============================================
+   Global Styles for FridgeMart
+   Modern E‑commerce Base + Tailwind Companion
+   ============================================ */
+
+/* --------------------------
+   1. CSS Reset & Box Sizing
+   -------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-page, #f9f9f9); /* fallback to pure-greys-5 */
+  color: var(--text-primary, #2C333F); /* richblack-700 */
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Remove default list styles */
+ul, ol {
+  list-style: none;
+}
+
+/* Remove default link underline and set color */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Make images responsive by default */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Inherit fonts for form elements */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Remove default button styling */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* --------------------------
+   2. CSS Variables (Theme)
+   -------------------------- */
+:root {
+  /* Primary brand color – cool blue */
+  --color-primary: #118AB2;       /* blue-200 */
+  --color-primary-light: #47A5C5; /* blue-100 */
+  --color-primary-dark: #0F7A9D;  /* blue-300 */
+
+  /* Accent – caribbean green */
+  --color-accent: #06D6A0;        /* caribbeangreen-100 */
+
+  /* Neutral grayscale (from Tailwind) */
+  --gray-5: #F9F9F9;              /* pure-greys-5 */
+  --gray-25: #E2E2E2;             /* pure-greys-25 */
+  --gray-50: #CCCCCC;             /* pure-greys-50 */
+  --gray-100: #B5B5B5;            /* pure-greys-100 */
+  --gray-200: #9E9E9E;
+  --gray-300: #888888;
+  --gray-400: #717171;
+  --gray-500: #5B5B5B;
+  --gray-600: #444444;
+  --gray-700: #2D2D2D;
+  --gray-800: #171717;
+  --gray-900: #141414;
+
+  /* Rich black shades */
+  --richblack-5: #F1F2FF;
+  --richblack-25: #DBDDEA;
+  --richblack-50: #C5C7D4;
+  --richblack-100: #AFB2BF;
+  --richblack-200: #999DAA;
+  --richblack-300: #838894;
+  --richblack-400: #6E727F;
+  --richblack-500: #585D69;
+  --richblack-600: #424854;
+  --richblack-700: #2C333F;
+  --richblack-800: #161D29;
+  --richblack-900: #000814;
+
+  /* Semantic colors */
+  --bg-page: var(--gray-5);
+  --text-primary: var(--richblack-700);
+  --text-secondary: var(--gray-500);
+  --border-color: var(--gray-25);
+  --card-bg: white;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+/* --------------------------
+   3. Typography
+   -------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--richblack-800);
+}
+
+h1 {
+  font-size: 2.5rem;   /* 40px */
+}
+h2 {
+  font-size: 2rem;     /* 32px */
+}
+h3 {
+  font-size: 1.5rem;   /* 24px */
+}
+h4 {
+  font-size: 1.25rem;  /* 20px */
+}
+h5 {
+  font-size: 1.125rem; /* 18px */
+}
+h6 {
+  font-size: 1rem;     /* 16px */
+}
+
+/* Paragraph and body text */
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Link styles (fallback for non‑Tailwind links) */
+a:not(.no-underline) {
+  transition: color 0.2s ease;
+}
+a:not(.no-underline):hover {
+  color: var(--color-primary);
+}
+
+/* --------------------------
+   4. Base Button Styles
+   -------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: var(--gray-5);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+.btn-secondary:hover {
+  background: white;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.btn-outline:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* Disabled state */
+.btn:disabled,
+.btn-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* --------------------------
+   5. Utility Classes
+   -------------------------- */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Flex utilities */
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-center {
+  justify-content: center;
+}
+.gap-1 { gap: 0.25rem; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.gap-8 { gap: 2rem; }
+
+/* Grid utilities */
+.grid {
+  display: grid;
+}
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+@media (min-width: 640px) {
+  .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 768px) {
+  .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Spacing utilities (margin, padding) */
+.m-0 { margin: 0; }
+.m-auto { margin: auto; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-8 { margin-bottom: 2rem; }
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+
+/* Rounded corners */
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-2xl { border-radius: var(--radius-2xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* Shadows */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+.hover-shadow-md:hover { box-shadow: var(--shadow-md); }
+
+/* Transitions */
+.transition { transition: all 0.2s ease; }
+.transition-slow { transition: all 0.3s ease; }
+
+/* --------------------------
+   6. Custom Animations
+   -------------------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+/* --------------------------
+   7. Scrollbar (Optional, modern)
+   -------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--gray-25);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+/* --------------------------
+   8. Selection Style
+   -------------------------- */
+::selection {
+  background: var(--color-primary-light);
+  color: white;
+}
+/* --------------------------
+   9. Base Card Style (optional global)
+   -------------------------- */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}

@@ -1,0 +1,201 @@
+/* ============================================
+   FridgeMart Global Styles
+   Tailwind CSS + Custom Foundation
+   ============================================ */
+
+/* 1. Import Tailwind’s layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. CSS Reset (extend Tailwind’s base reset) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* 3. Root Variables (Design Tokens) */
+:root {
+  /* Brand Colors */
+  --color-primary: #118AB2;       /* blue-200 from your palette */
+  --color-primary-light: #47A5C5; /* blue-100 */
+  --color-primary-dark: #0F7A9D;  /* blue-300 */
+  --color-accent: #06D6A0;        /* caribbeangreen-100 */
+
+  /* Neutral Grays (aligned with pure-greys) */
+  --gray-5: #F9F9F9;
+  --gray-25: #E2E2E2;
+  --gray-50: #CCCCCC;
+  --gray-100: #B5B5B5;
+  --gray-200: #9E9E9E;
+  --gray-300: #888888;
+  --gray-400: #717171;
+  --gray-500: #5B5B5B;
+  --gray-600: #444444;
+  --gray-700: #2D2D2D;
+  --gray-800: #171717;
+  --gray-900: #141414;
+
+  /* Rich Black Shades (optional, for text) */
+  --richblack-800: #161D29;
+
+  /* Semantic Aliases */
+  --bg-page: var(--gray-5);
+  --text-primary: var(--richblack-800);
+  --text-secondary: var(--gray-600);
+  --border-color: var(--gray-25);
+  --card-bg: white;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+/* 4. Typography Defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+/* Sizes (can be overridden by Tailwind’s text-* classes) */
+h1 { font-size: 2.5rem; }   /* 40px */
+h2 { font-size: 2rem; }     /* 32px */
+h3 { font-size: 1.5rem; }   /* 24px */
+h4 { font-size: 1.25rem; }  /* 20px */
+h5 { font-size: 1.125rem; } /* 18px */
+h6 { font-size: 1rem; }     /* 16px */
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+/* 5. Image & Media Defaults */
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 6. Form Elements (consistent inheritance) */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* 7. Focus Accessibility (WCAG) */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* 8. Scrollbar Styling (optional, modern) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--gray-25);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* 9. Selection Styling */
+::selection {
+  background: var(--color-primary-light);
+  color: white;
+}
+
+/* 10. Custom Utility Classes (complement Tailwind) */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) { .container { max-width: 640px; } }
+@media (min-width: 768px) { .container { max-width: 768px; } }
+@media (min-width: 1024px) { .container { max-width: 1024px; } }
+@media (min-width: 1280px) { .container { max-width: 1280px; } }
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-center {
+  display: grid;
+  place-items: center;
+}
+
+/* Optional: Card base (can be used with Tailwind’s classes) */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
