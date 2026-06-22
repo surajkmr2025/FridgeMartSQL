@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === "production") {
   const staticPath = path.join(__dirname, "../FRONTEND/dist");
   app.use(express.static(staticPath));
 
-  app.get("*", (req, res) => {
+  app.get("/*", (req, res) => {
     if (req.path.startsWith("/api")) {
       return res.status(404).json({ message: "API route not found" });
     }
