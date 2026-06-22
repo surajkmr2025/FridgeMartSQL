@@ -1,16 +1,14 @@
-
 const express = require("express");
 const path = require("path");
-const db = require('./Config/db');
-const authRoutes = require('./Routes/auth');
-const productsRoute = require('./Routes/product')
-const cookieParser = require('cookie-parser');
-const userRoute = require('./Routes/user');
-const cartRoute = require('./Routes/cart');
-const checkoutRoute = require('./Routes/orders');
-const cors = require('cors')
-require('dotenv').config();
-
+const db = require("./Config/db");
+const authRoutes = require("./Routes/auth");
+const productsRoute = require("./Routes/product");
+const cookieParser = require("cookie-parser");
+const userRoute = require("./Routes/user");
+const cartRoute = require("./Routes/cart");
+const checkoutRoute = require("./Routes/orders");
+const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 
@@ -22,23 +20,23 @@ app.use(express.json());
 
 app.use(cookieParser());
 // Routes
-app.get('/test',(req, res) => {
-    res.status(200).json({
-        msg: "You are on test route"
-    });
-})
+app.get("/test", (req, res) => {
+  res.status(200).json({
+    msg: "You are on test route",
+  });
+});
 
 //auth route
-app.use('/api/auth', authRoutes);
+app.use("/api/auth", authRoutes);
 
 //Product route
-app.use('/api/products', productsRoute);
+app.use("/api/products", productsRoute);
 //user route
-app.use('/api/user', userRoute);
+app.use("/api/user", userRoute);
 //cart route
-app.use('/api/cart', cartRoute);
+app.use("/api/cart", cartRoute);
 //checkout route
-app.use('/api/orders', checkoutRoute);
+app.use("/api/orders", checkoutRoute);
 
 // Test Route
 app.get("/", (req, res) => {
@@ -49,7 +47,7 @@ if (process.env.NODE_ENV === "production") {
   const staticPath = path.join(__dirname, "../FRONTEND/dist");
   app.use(express.static(staticPath));
 
-  app.get("/*", (req, res) => {
+  app.use((req, res) => {
     if (req.path.startsWith("/api")) {
       return res.status(404).json({ message: "API route not found" });
     }
