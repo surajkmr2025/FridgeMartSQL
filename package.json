@@ -3,14 +3,34 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "commonjs",
-
-  "scripts": {},
+  "scripts": {
+    "build": "npm --prefix BACKEND ci && npm --prefix FRONTEND ci && npm --prefix FRONTEND run build",
+    "start": "npm --prefix BACKEND start",
+    "test": "npm --prefix BACKEND test && npm --prefix FRONTEND run lint && npm --prefix FRONTEND run build",
+    "frontend": "cd FRONTEND && npm run dev",
+    "backend": "cd BACKEND nodemon server.js",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "A modern, full-stack e-commerce platform for refrigerator sales built with React, Node.js, Express, and MySQL. Features a sleek admin dashboard, user authentication, shopping cart, and order management.",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.5.0"
-  }
+  },
+  "dependencies": {
+    "concurrently": "^10.0.3",
+    "playwright": "^1.58.2",
+    "playwright-core": "^1.58.2",
+    "undici-types": "^7.18.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surajkmr2025/FridgeMartSQL.git"
+  },
+  "bugs": {
+    "url": "https://github.com/surajkmr2025/FridgeMartSQL/issues"
+  },
+  "homepage": "https://github.com/surajkmr2025/FridgeMartSQL#readme"
 }

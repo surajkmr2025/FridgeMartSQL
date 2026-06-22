@@ -1,4 +1,5 @@
 const mysql = require("mysql2");
+require("dotenv").config();
 
 if (process.env.NODE_ENV === "test") {
   module.exports = {
@@ -6,10 +7,11 @@ if (process.env.NODE_ENV === "test") {
   };
 } else {
   const db = mysql.createConnection({
-    host: process.env.DB_HOST || "localhost",
-    user: process.env.DB_USER || "root",
-    database: process.env.DB_NAME || "fridgemart",
-    password: process.env.DB_PASSWORD || "",
+    host: process.env.MYSQLHOST,
+    port: Number(process.env.MYSQLPORT),
+    user: process.env.MYSQLUSER ,
+    database: process.env.MYSQLDATABASE,
+    password: process.env.MYSQLPASSWORD,
   });
 
   db.connect((err) => {
