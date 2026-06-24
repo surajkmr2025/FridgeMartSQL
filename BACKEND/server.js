@@ -17,7 +17,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "http://fridge-mart-sql.vercel.app",
+  "https://fridge-mart-sql.vercel.app",
 ];
 
 app.use(
