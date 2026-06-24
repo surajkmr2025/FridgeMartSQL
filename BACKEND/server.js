@@ -61,17 +61,17 @@ app.get("/", (req, res) => {
   res.send("FridgeMart Backend Running ");
 });
 
-if (process.env.NODE_ENV === "production") {
-  const staticPath = path.join(__dirname, "../FRONTEND/dist");
-  app.use(express.static(staticPath));
+// if (process.env.NODE_ENV === "production") {
+//   const staticPath = path.join(__dirname, "../FRONTEND/dist");
+//   app.use(express.static(staticPath));
 
-  app.use((req, res) => {
-    if (req.path.startsWith("/api")) {
-      return res.status(404).json({ message: "API route not found" });
-    }
-    res.sendFile(path.join(staticPath, "index.html"));
-  });
-}
+//   app.use((req, res) => {
+//     if (req.path.startsWith("/api")) {
+//       return res.status(404).json({ message: "API route not found" });
+//     }
+//     res.sendFile(path.join(staticPath, "index.html"));
+//   });
+// }
 
 const PORT = process.env.PORT || 4000; // matches .env PORT=4000
 
