@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const api = axios.create({
-    baseURL: 'https://fridgemartsql.onrender.com' || '/api',
-    withCredentials: true,
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL + "/api",
 });
 
 api.interceptors.response.use(
