@@ -10,10 +10,15 @@ const checkoutRoute = require("./Routes/orders");
 const cors = require("cors");
 require("dotenv").config();
 
-const app = express();
+// Validate required environment variables
+const requiredEnvVars = ["MYSQLHOST", "MYSQLUSER", "MYSQLDATABASE", "JWT_SECRET"];
+const missingVars = requiredEnvVars.filter((v) => !process.env[v]);
+if (missingVars.length > 0) {
+  console.error(`Missing required environment variables: ${missingVars.join(", ")}`);
+  process.exit(1);
+}
 
-//allow request from frontend
-// app.use(cors());
+const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
@@ -34,33 +39,25 @@ app.use(
   })
 );
 
-// parse json body
 app.use(express.json());
-
 app.use(cookieParser());
-// Routes
-app.get("/test", (req, res) => {
-  res.status(200).json({
-    msg: "You are on test route",
-  });
+
+// Health check endpoint
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-//auth route
+// API Routes
 app.use("/api/auth", authRoutes);
-
-//Product route
 app.use("/api/products", productsRoute);
-//user route
 app.use("/api/user", userRoute);
-//cart route
 app.use("/api/cart", cartRoute);
-//checkout route
 app.use("/api/orders", checkoutRoute);
 
-// Test Route (only in development)
+// Development test route
 if (process.env.NODE_ENV !== "production") {
   app.get("/", (req, res) => {
-    res.send("FridgeMart Backend Running ");
+    res.send("FridgeMart Backend Running (Development)");
   });
 }
 
@@ -70,9 +67,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(staticPath));
 
   app.get("*", (req, res) => {
-    if (req.path.startsWith("/api")) {
-      return res.status(404).json({ message: "API route not found" });
-    }
     res.sendFile(path.join(staticPath, "index.html"));
   });
 }
