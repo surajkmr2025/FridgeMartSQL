@@ -25,7 +25,7 @@ export default function LoginForm() {
 
     const onSubmit = async (data) => {
         try {
-            const res = await API.post('/api/auth/login', data);
+            const res = await API.post('/auth/login', data);
             login(res.data.token, res.data.user.role);
             toast.success(res.data.message || 'Authenticated successfully ✨');
             
