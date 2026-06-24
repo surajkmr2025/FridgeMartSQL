@@ -18,7 +18,8 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
   "https://fridge-mart-sql.vercel.app",
-];
+  process.env.FRONTEND_URL,
+].filter(Boolean);
 
 app.use(
   cors({
@@ -56,24 +57,27 @@ app.use("/api/cart", cartRoute);
 //checkout route
 app.use("/api/orders", checkoutRoute);
 
-// Test Route
-app.get("/", (req, res) => {
-  res.send("FridgeMart Backend Running ");
-});
+// Test Route (only in development)
+if (process.env.NODE_ENV !== "production") {
+  app.get("/", (req, res) => {
+    res.send("FridgeMart Backend Running ");
+  });
+}
 
-// if (process.env.NODE_ENV === "production") {
-//   const staticPath = path.join(__dirname, "../FRONTEND/dist");
-//   app.use(express.static(staticPath));
+// Serve frontend in production
+if (process.env.NODE_ENV === "production") {
+  const staticPath = path.join(__dirname, "../FRONTEND/dist");
+  app.use(express.static(staticPath));
 
-//   app.use((req, res) => {
-//     if (req.path.startsWith("/api")) {
-//       return res.status(404).json({ message: "API route not found" });
-//     }
-//     res.sendFile(path.join(staticPath, "index.html"));
-//   });
-// }
+  app.get("*", (req, res) => {
+    if (req.path.startsWith("/api")) {
+      return res.status(404).json({ message: "API route not found" });
+    }
+    res.sendFile(path.join(staticPath, "index.html"));
+  });
+}
 
-const PORT = process.env.PORT || 4000; // matches .env PORT=4000
+const PORT = process.env.PORT || 4000;
 
 module.exports = app;
 

@@ -272,19 +272,71 @@ npm run lint
 
 ## 🚀 Deployment
 
-### Frontend Deployment
-```bash
-cd FRONTEND
-npm run build
-# Deploy the dist/ folder to your hosting service
+### Environment Variables
+
+**Backend (.env in BACKEND folder):**
+```env
+PORT=4000
+NODE_ENV=production
+FRONTEND_URL=https://your-frontend-domain.com
+MYSQLHOST=your-mysql-host
+MYSQLPORT=3306
+MYSQLUSER=your-mysql-user
+MYSQLPASSWORD=your-mysql-password
+MYSQLDATABASE=fridgemart
+JWT_SECRET=your-secure-random-string
 ```
 
-### Backend Deployment
+**Frontend (.env in FRONTEND folder):**
+```env
+# Leave empty if frontend and backend are on same domain
+# Otherwise, set to your backend URL (e.g., https://api.yourdomain.com)
+VITE_API_BASE_URL=
+```
+
+### Option 1: Single Host Deployment (Recommended)
+
+Build and deploy everything from the backend:
+
+```bash
+# Build frontend first
+cd FRONTEND
+npm install
+npm run build
+
+# Start backend (serves frontend from ../FRONTEND/dist)
+cd ../BACKEND
+npm install
+NODE_ENV=production npm start
+```
+
+### Option 2: Separate Hosting
+
+Deploy frontend and backend separately:
+
+**Frontend (Vercel/Netlify):**
+```bash
+cd FRONTEND
+npm install
+npm run build
+# Set VITE_API_BASE_URL in your hosting platform to your backend URL
+# Deploy the dist/ folder
+```
+
+**Backend (Railway/Render/Fly.io):**
 ```bash
 cd BACKEND
-# Set production environment variables
-npm start
+npm install
+# Set all environment variables in your hosting platform
+NODE_ENV=production npm start
 ```
+
+### Important Production Notes
+
+1. **CORS**: Set `FRONTEND_URL` in backend .env to your frontend domain
+2. **Database**: Ensure MySQL is accessible from your backend host
+3. **JWT_SECRET**: Use a strong random string (min 32 characters)
+4. **NODE_ENV**: Must be set to `production` for static file serving
 
 ## 🤝 Contributing
 
