@@ -4,9 +4,9 @@ const API = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL + "/api",
 });
 
-api.interceptors.response.use(
+API.interceptors.response.use(
     res => res,
-    err => {
+    (err) => {
         if (err.response?.status === 401) {
             localStorage.removeItem("token");
             localStorage.removeItem("role");
@@ -16,7 +16,7 @@ api.interceptors.response.use(
     }
 );
 
-api.interceptors.request.use((config) => {
+API.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -24,4 +24,4 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-export default api;
+export default API;

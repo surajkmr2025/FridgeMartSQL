@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+// import axios from "axios";
+import API from "../../utils/axios";
 import toast from 'react-hot-toast';
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -24,7 +25,7 @@ export default function LoginForm() {
 
     const onSubmit = async (data) => {
         try {
-            const res = await axios.post('/api/auth/login', data);
+            const res = await API.post('/api/auth/login', data);
             login(res.data.token, res.data.user.role);
             toast.success(res.data.message || 'Authenticated successfully ✨');
             
@@ -121,6 +122,7 @@ export default function LoginForm() {
                                     <input
                                         type="password"
                                         placeholder="••••••••••"
+                                        autoComplete="current-password"
                                         className={`w-full h-12 border ${errors.password ? 'border-red-400 bg-red-50 focus:ring-red-200' : 'border-gray-200 bg-white focus:border-blue-500 focus:ring-blue-200'} rounded-xl pl-11 pr-4 text-sm font-medium text-gray-900 outline-none focus:ring-4 transition duration-150`}
                                         {...register('password', { required: "Password is mandatory" })}
                                     />
